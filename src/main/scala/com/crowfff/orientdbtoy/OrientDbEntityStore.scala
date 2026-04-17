@@ -29,7 +29,7 @@ final class OrientDbEntityStore[F[_]: Async] private (
   override def remove(id: Int): F[Unit] =
     Async[F].blocking {
       db.activateOnCurrentThread()
-      val resultSet = db.command(s"DELETE FROM Entity WHERE id = $id")
+      val resultSet = db.command("DELETE FROM Entity WHERE id = ?", Int.box(id))
       try ()
       finally resultSet.close()
     }
@@ -107,7 +107,7 @@ object OrientDbEntityStore {
           private def extractId(result: OResult): Option[Int] =
             Option(result.getProperty[Any]("id")).flatMap {
               case i: java.lang.Integer => Some(i.intValue)
-              case l: java.lang.Long    => Some(l.intValue)
+              case l: java.lang.Long if l >= Int.MinValue && l <= Int.MaxValue => Some(l.intValue)
               case s: String            => Try(s.toInt).toOption
               case _                    => None
             }
