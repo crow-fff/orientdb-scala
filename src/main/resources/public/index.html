@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OrientDB Scala Toy App</title>
+  </head>
+  <body>
+    <h1>OrientDB live query toy app</h1>
+
+    <label>
+      Entity ID
+      <input type="number" id="entity-id" value="100" />
+    </label>
+    <button id="add-btn">POST /entity</button>
+    <button id="remove-btn">DELETE /entity/:id</button>
+
+    <h2>Live events</h2>
+    <pre id="events"></pre>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,14 @@
+services:
+  orientdb:
+    image: orientdb:3.2.44
+    container_name: orientdb-toy
+    ports:
+      - "2424:2424"
+      - "2480:2480"
+    environment:
+      ORIENTDB_ROOT_PASSWORD: rootpwd
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:2480/listDatabases"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
